@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* Estilo del aviso de protección */
+        /* Aviso de protección */
         #aviso-proteccion {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.95); color: var(--accent);
@@ -42,7 +42,6 @@
         nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; z-index: 1000; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass); }
         .nav-logo { height: 35px; }
         .nav-links a { color: var(--text); text-decoration: none; margin-left: 25px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
 
         /* Hero */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #150d05 0%, #000 100%); padding: 0 5%; }
@@ -68,13 +67,21 @@
         .about-img { width: 100%; }
 
         /* WhatsApp Float */
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; text-align: center; line-height: 65px; font-size: 25px; z-index: 1000; }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; text-align: center; line-height: 65px; font-size: 25px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
-        /* Contacto */
+        /* Contacto con Checkboxes Multi-selección */
         .contact { padding: 100px 10%; background: #000; }
         .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1100px; margin: 0 auto; }
         .contact-box { background: var(--bg-card); padding: 40px; border-radius: 15px; border: 1px solid #1a1a1a; }
-        input, select, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid #222; color: white; border-radius: 5px; outline: none; }
+        
+        .services-selection { margin-bottom: 20px; text-align: left; }
+        .services-selection label { display: block; margin-bottom: 10px; color: var(--text-dim); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; }
+        
+        .checkbox-group { display: flex; flex-direction: column; gap: 12px; }
+        .checkbox-item { display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text); font-size: 1rem; }
+        .checkbox-item input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+
+        input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid #222; color: white; border-radius: 5px; outline: none; }
         .btn-main { background: var(--accent); color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: 700; text-transform: uppercase; cursor: pointer; border: none; width: 100%; }
         
         footer { padding: 60px 5%; text-align: center; color: var(--text-dim); font-size: 0.75rem; border-top: 1px solid #111; }
@@ -136,32 +143,41 @@
     <section class="contact" id="contacto">
         <div class="contact-container">
             <div>
-                <h2>Conectemos.</h2>
-                <p>Escríbenos para potenciar tu marca o carrera.</p>
+                <h2>Potenciemos tu marca.</h2>
+                <p>Selecciona los servicios de tu interés para recibir una propuesta personalizada.</p>
             </div>
             <div class="contact-box">
                 <form onsubmit="return sendWhatsApp();">
-                    <input type="text" id="w-name" placeholder="Nombre" required>
-                    <select id="w-service">
-                        <option>Ropa & Startups / AVUS</option>
-                        <option>Manager de Modelos</option>
-                        <option>Branding & Identidad</option>
-                    </select>
-                    <textarea id="w-message" placeholder="¿Cómo colaboramos?" required></textarea>
+                    <input type="text" id="w-name" placeholder="Tu Nombre o Empresa" required>
+                    
+                    <div class="services-selection">
+                        <label>Servicios Interesados:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Ropa & Startups / AVUS"> Ropa & Startups / AVUS</label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Manager de Modelos"> Manager de Modelos</label>
+                            <label class="checkbox-item"><input type="checkbox" name="servicio" value="Branding & Identidad"> Branding & Identidad</label>
+                        </div>
+                    </div>
+
+                    <textarea id="w-message" placeholder="¿Qué proyecto tienes en mente?" rows="4" required></textarea>
                     <button type="submit" class="btn-main">Enviar a WhatsApp</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <a href="https://wa.me/593979010077" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="javascript:void(0);" onclick="whatsappFlotante()" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <footer>
-        <p>© 2026 ECOS BRANDING STUDIO</p>
+        <p>© 2026 ECOS BRANDING STUDIO | DISEÑADO POR VXO ART</p>
     </footer>
 
     <script>
-        // PROTECCIÓN DE IMÁGENES (PC Y MÓVIL)
+        const telefono = "593979010077";
+
+        // PROTECCIÓN DE IMÁGENES
         const aviso = document.getElementById('aviso-proteccion');
         function mostrarAviso(e) {
             e.preventDefault();
@@ -169,16 +185,35 @@
             setTimeout(() => { aviso.style.display = 'none'; }, 2000);
             return false;
         }
-
         document.addEventListener('contextmenu', mostrarAviso, false);
         document.addEventListener('dragstart', (e) => e.preventDefault(), false);
 
+        // WHATSAPP FLOTANTE (MENSAJE GENERAL)
+        function whatsappFlotante() {
+            const msj = encodeURIComponent("Hola Víctor, me interesa conocer más sobre ECOS y AVUS. Vi tu trayectoria como Manager de Modelos y me gustaría agendar una consultoría.");
+            window.open(`https://wa.me/${telefono}?text=${msj}`, '_blank');
+        }
+
+        // FORMULARIO (MENSAJE PERSONALIZADO)
         function sendWhatsApp() {
             const name = document.getElementById('w-name').value;
-            const service = document.getElementById('w-service').value;
             const message = document.getElementById('w-message').value;
-            const text = `Hola Víctor! Soy ${name}, me interesa ${service}. ${message}`;
-            window.open(`https://wa.me/593979010077?text=${encodeURIComponent(text)}`, '_blank');
+            
+            // Obtener servicios seleccionados
+            const seleccionados = [];
+            document.querySelectorAll('input[name="servicio"]:checked').forEach(cb => {
+                seleccionados.push(cb.value);
+            });
+
+            if (seleccionados.length === 0) {
+                alert("Por favor, selecciona al menos un servicio.");
+                return false;
+            }
+
+            const listaServicios = seleccionados.join(", ");
+            const fullText = encodeURIComponent(`¡Hola Víctor! 👋%0A%0A*Nuevo Prospecto:* ${name}%0A*Servicios de interés:* ${listaServicios}%0A*Proyecto:* ${message}%0A%0A_Enviado desde ECOS Branding Studio_`);
+            
+            window.open(`https://wa.me/${telefono}?text=${fullText}`, '_blank');
             return false;
         }
     </script>
