@@ -88,7 +88,7 @@
         .about h2 { font-size: 2.5rem; margin-bottom: 20px; }
         .about h2 span { color: var(--accent); }
 
-        /* Formulario */
+        /* Formulario WhatsApp */
         .contact { padding: 100px 10%; text-align: center; }
         .contact-box { background: var(--bg-card); padding: 50px; border-radius: 20px; max-width: 600px; margin: 0 auto; }
         input, select, textarea { 
@@ -128,14 +128,14 @@
         </div>
         
         <div class="bento-grid">
-            <div class="bento-item span-2-2"><img src="m1.jpg" alt="Mockup 1"></div>
-            <div class="bento-item"><img src="m2.jpg" alt="Mockup 2"></div>
-            <div class="bento-item"><img src="m3.jpg" alt="Mockup 3"></div>
-            <div class="bento-item span-2-1"><img src="m4.jpg" alt="Mockup 4"></div>
-            <div class="bento-item"><img src="m5.jpg" alt="Mockup 5"></div>
-            <div class="bento-item"><img src="m6.jpg" alt="Mockup 6"></div>
-            <div class="bento-item span-2-1"><img src="m7.jpg" alt="Mockup 7"></div>
-            <div class="bento-item"><img src="m8.jpg" alt="Mockup 8"></div>
+            <div class="bento-item span-2-2"><img src="m1.png" alt="Mockup 1"></div>
+            <div class="bento-item"><img src="m2.png" alt="Mockup 2"></div>
+            <div class="bento-item"><img src="m3.png" alt="Mockup 3"></div>
+            <div class="bento-item span-2-1"><img src="m4.png" alt="Mockup 4"></div>
+            <div class="bento-item"><img src="m5.png" alt="Mockup 5"></div>
+            <div class="bento-item"><img src="m6.png" alt="Mockup 6"></div>
+            <div class="bento-item span-2-1"><img src="m7.png" alt="Mockup 7"></div>
+            <div class="bento-item"><img src="m8.png" alt="Mockup 8"></div>
         </div>
     </section>
 
@@ -152,14 +152,14 @@
     <section class="contact" id="contacto">
         <div class="contact-box">
             <h2>Brief de Proyecto</h2>
-            <form>
-                <input type="text" placeholder="Tu nombre / Empresa" required>
-                <select>
+            <form onsubmit="return sendWhatsApp();">
+                <input type="text" id="w-name" placeholder="Tu nombre / Empresa" required>
+                <select id="w-service">
                     <option>Branding Articulado de marca</option>
                     <option>Producción Audiovisual</option>
                     <option>Marketing Estratégico</option>
                 </select>
-                <textarea placeholder="Cuéntanos tu idea..." rows="4"></textarea>
+                <textarea id="w-message" placeholder="Cuéntanos tu idea..." rows="4"></textarea>
                 <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">ENVIAR A ECOS</button>
             </form>
         </div>
@@ -167,8 +167,27 @@
 
     <footer>
         <p>2026 | Visión · Impacto · Permanencia</p>
-        <p>© Víctor Carvajal - Quito / Medellín / Quito</p>
+        <p>© Víctor Carvajal - Quito / Bogotá</p>
     </footer>
 
+    <script>
+        function sendWhatsApp() {
+            const name = document.getElementById('w-name').value;
+            const service = document.getElementById('w-service').value;
+            const message = document.getElementById('w-message').value;
+            const phone = "593979010077";
+
+            if (name === "" || message === "") {
+                alert("Por favor, llena los campos para poder asesorarte mejor.");
+                return false;
+            }
+
+            const text = `Hola ECOS! 👋%0A%0A*Nuevo Brief de Proyecto*%0A%0A*Nombre:* ${name}%0A*Servicio:* ${service}%0A*Mensaje:* ${message}`;
+            const url = `https://wa.me/${phone}?text=${text}`;
+
+            window.open(url, '_blank');
+            return false;
+        }
+    </script>
 </body>
 </html>
