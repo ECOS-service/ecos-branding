@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECOS | Víctor Carvajal</title>
+    <title>ECOS | Víctor Carvajal - Visión · Impacto · Permanencia</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,6 +22,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--bg); color: var(--text); overflow-x: hidden; -webkit-touch-callout: none; user-select: none; }
 
+        /* HEADER */
         header { 
             position: fixed; top: 0; width: 100%; padding: 15px 5%; 
             display: flex; justify-content: space-between; align-items: center; 
@@ -31,47 +32,62 @@
         .nav-logo { height: 22px; }
         .nav-links a { color: var(--text); text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-left: 15px; font-weight: 700; }
 
-        .hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 5% 40px 5%; }
+        /* HERO */
+        .hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 100px 5% 40px 5%; }
         .hero-logo { width: 280px; max-width: 75%; margin-bottom: 15px; }
         .hero h1 { font-weight: 300; letter-spacing: 4px; color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 25px; }
 
+        /* BENTO PORTFOLIO */
         .portfolio { padding: 20px 5%; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 200px); gap: 12px; }
         .bento-item { border-radius: 10px; overflow: hidden; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); }
-        .bento-item img { width: 100%; height: 100%; object-fit: cover; }
+        .bento-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
+        .bento-item:hover img { transform: scale(1.05); filter: brightness(1); }
         .span-2-2 { grid-column: span 2; grid-row: span 2; }
         .span-2-1 { grid-column: span 2; }
 
-        .adn-section { padding: 60px 5%; background: var(--bg-card); border-top: 1px solid var(--glass); }
-        .adn-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .adn-section h2 { color: var(--accent); letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 20px; }
-        .adn-section p { color: var(--text-dim); line-height: 1.6; font-size: 0.9rem; }
+        /* ADN SECTION */
+        .adn-section { padding: 60px 5%; background: var(--bg-card); border-top: 1px solid var(--glass); text-align: center; }
+        .adn-container { max-width: 800px; margin: 0 auto; }
+        .adn-section h2 { color: var(--accent); letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; }
+        .adn-section p { color: var(--text-dim); line-height: 1.6; font-size: 0.9rem; font-weight: 300; }
 
+        /* INSTAGRAM COUNTER LIVE */
         .instagram-counter { padding: 60px 5%; text-align: center; }
-        .ig-box { 
-            max-width: 350px; margin: 0 auto; background: #050505; 
-            padding: 25px; border-radius: 20px; border: 1px solid #1a1a1a; 
-        }
+        .ig-box { max-width: 350px; margin: 0 auto; background: #050505; padding: 25px; border-radius: 20px; border: 1px solid #1a1a1a; }
         .ig-profile-pic { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--ig-pink); padding: 3px; margin-bottom: 10px; }
         .ig-username { font-weight: 700; display: block; margin-bottom: 5px; text-decoration: none; color: white; }
         .ig-stats { display: flex; justify-content: center; gap: 20px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #111; }
         .stat-val { font-size: 1.2rem; font-weight: 700; }
         .stat-lbl { font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; }
 
-        .contact { padding: 60px 5%; }
-        .contact-box { background: var(--bg-card); padding: 30px; border-radius: 15px; max-width: 450px; margin: 0 auto; border: 1px solid #1a1a1a; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.65rem; color: var(--accent); margin-bottom: 5px; font-weight: 700; }
-        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #222; color: #fff; border-radius: 6px; outline: none; }
-        .btn-main { background: var(--accent); color: white; padding: 15px; border-radius: 6px; font-weight: 700; text-transform: uppercase; width: 100%; border: none; cursor: pointer; margin-top: 10px; }
+        /* CONTACT & MULTI-SELECTOR */
+        .contact { padding: 60px 5% 100px 5%; }
+        .contact-box { background: var(--bg-card); padding: 35px 25px; border-radius: 15px; max-width: 500px; margin: 0 auto; border: 1px solid #1a1a1a; text-align: center; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 0.65rem; color: var(--accent); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+        input { width: 100%; padding: 12px; background: #000; border: 1px solid #222; color: #fff; border-radius: 6px; outline: none; margin-bottom: 10px; }
+        
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .service-opt { 
+            background: #000; border: 1px solid #222; padding: 12px 8px; border-radius: 8px; 
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; 
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; 
+            text-align: center; color: var(--text-dim); 
+        }
+        .service-opt.selected { border-color: var(--accent); color: #fff; background: rgba(251, 145, 50, 0.1); box-shadow: 0 0 15px rgba(251, 145, 50, 0.05); }
 
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 1000; }
+        .btn-main { background: var(--accent); color: white; padding: 15px; border-radius: 6px; font-weight: 700; text-transform: uppercase; width: 100%; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        footer { padding: 30px; text-align: center; color: var(--text-dim); font-size: 0.6rem; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        footer { padding: 40px; text-align: center; color: var(--text-dim); font-size: 0.6rem; letter-spacing: 1px; }
 
         @media (max-width: 768px) {
             .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
             .span-2-2, .span-2-1 { grid-column: span 2; height: 280px; }
+            .services-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -89,7 +105,7 @@
     <section class="hero">
         <img src="logo-rosa.svg" alt="ECOS" class="hero-logo">
         <h1>Visión · Impacto · Permanencia</h1>
-        <a href="#contacto" class="btn-main" style="width: auto; padding: 12px 30px;">Consultoría Estratégica</a>
+        <a href="#contacto" class="btn-main" style="width: auto; padding: 12px 40px;">Consultoría Estratégica</a>
     </section>
 
     <section class="portfolio" id="proyectos">
@@ -108,7 +124,7 @@
     <section class="adn-section" id="adn">
         <div class="adn-container">
             <h2>ADN ECOS</h2>
-            <p>Estrategia, Diseño y Desarrollo de Startups entre Ecuador y Colombia. Gestionamos el posicionamiento de imagen premium y modelos de negocio escalables con visión global.</p>
+            <p>Estrategia, Diseño y Desarrollo de Startups entre Ecuador y Colombia. Fusionamos la precisión técnica con el refinamiento visual del Management de Modelos para construir marcas con permanencia global.</p>
         </div>
     </section>
 
@@ -118,15 +134,15 @@
             <a href="https://www.instagram.com/ecosbranding" target="_blank" class="ig-username">@ecosbranding</a>
             <div class="ig-stats">
                 <div class="ig-stat-item">
-                    <div class="stat-val">124</div>
+                    <div class="stat-val" id="posts-count">4</div>
                     <div class="stat-lbl">Posts</div>
                 </div>
                 <div class="ig-stat-item">
-                    <div class="stat-val" id="follower-count">15.2K</div>
+                    <div class="stat-val" id="followers-count">--</div>
                     <div class="stat-lbl">Seguidores</div>
                 </div>
                 <div class="ig-stat-item">
-                    <div class="stat-val">311</div>
+                    <div class="stat-val" id="following-count">6</div>
                     <div class="stat-lbl">Seguidos</div>
                 </div>
             </div>
@@ -135,19 +151,21 @@
 
     <section class="contact" id="contacto">
         <div class="contact-box">
-            <h2 style="margin-bottom: 20px; font-weight: 300;">PROYECTA TU VISIÓN</h2>
+            <h2 style="margin-bottom: 25px; font-weight: 300; letter-spacing: 2px;">PROYECTA TU VISIÓN</h2>
             <div class="form-group">
                 <label>Tu Nombre</label>
                 <input type="text" id="nombre" placeholder="Nombre completo">
             </div>
             <div class="form-group">
-                <label>Servicio</label>
-                <select id="servicio">
-                    <option>Desarrollo de Startups</option>
-                    <option>Management de Modelos</option>
-                    <option>Branding de Ultra-Lujo</option>
-                    <option>Estrategia Digital</option>
-                </select>
+                <label>Enfoques Estratégicos (Máx. 3)</label>
+                <div class="services-grid">
+                    <div class="service-opt" onclick="toggleService(this, 'Desarrollo de Startups')">Desarrollo de Startups</div>
+                    <div class="service-opt" onclick="toggleService(this, 'Management de Modelos')">Management de Modelos</div>
+                    <div class="service-opt" onclick="toggleService(this, 'Branding de Ultra-Lujo')">Branding de Ultra-Lujo</div>
+                    <div class="service-opt" onclick="toggleService(this, 'Estrategia Digital')">Estrategia Digital</div>
+                    <div class="service-opt" onclick="toggleService(this, 'Ingeniería Financiera')">Ingeniería Financiera</div>
+                    <div class="service-opt" onclick="toggleService(this, 'Posicionamiento Premium')">Posicionamiento Premium</div>
+                </div>
             </div>
             <button onclick="enviarWhatsApp()" class="btn-main">Iniciar Conversación</button>
         </div>
@@ -158,18 +176,51 @@
     </a>
 
     <footer>
-        <p>© 2026 ECOS BRANDING STUDIO</p>
+        <p>© 2026 ECOS BRANDING STUDIO | BY VXO ART</p>
     </footer>
 
     <script>
+        // SCRIPT DE INSTAGRAM LIVE
+        async function updateIGStats() {
+            try {
+                // Intento de fetch de datos públicos
+                const response = await fetch('https://www.instagram.com/ecosbranding/?__a=1&__d=dis');
+                const data = await response.json();
+                const stats = data.graphql.user;
+                document.getElementById('posts-count').innerText = stats.edge_owner_to_timeline_media.count;
+                document.getElementById('followers-count').innerText = stats.edge_followed_by.count;
+                document.getElementById('following-count').innerText = stats.edge_follow.count;
+            } catch (e) {
+                // Datos de respaldo basados en tu perfil actual
+                document.getElementById('followers-count').innerText = "2"; 
+            }
+        }
+        updateIGStats();
+
+        // SCRIPT DE SELECCIÓN MÚLTIPLE (MÁX 3)
+        let selectedServices = [];
+        function toggleService(element, serviceName) {
+            if (selectedServices.includes(serviceName)) {
+                selectedServices = selectedServices.filter(s => s !== serviceName);
+                element.classList.remove('selected');
+            } else {
+                if (selectedServices.length < 3) {
+                    selectedServices.push(serviceName);
+                    element.classList.add('selected');
+                } else {
+                    alert("Selecciona tus 3 prioridades principales para un mejor enfoque.");
+                }
+            }
+        }
+
         function enviarWhatsApp() {
             const nombre = document.getElementById('nombre').value || "Interesado";
-            const servicio = document.getElementById('servicio').value;
-            const msj = encodeURIComponent(`Hola Víctor, mi nombre es ${nombre}. Me interesa el servicio de ${servicio} para elevar mi proyecto con ECOS.`);
+            if (selectedServices.length === 0) { alert("Elige al menos un enfoque"); return; }
+            const serviciosTxt = selectedServices.join(", ");
+            const msj = encodeURIComponent(`Hola Víctor, mi nombre es ${nombre}. Me interesan estos enfoques para mi proyecto: ${serviciosTxt}.`);
             window.open(`https://wa.me/593979010077?text=${msj}`, '_blank');
         }
 
-        // BLOQUEO DE CLIC DERECHO PARA PROTECCIÓN
         document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
