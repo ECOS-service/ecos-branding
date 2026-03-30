@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECOS | Víctor Carvajal - Visión & Impacto</title>
+    <title>ECOS | Víctor Carvajal</title>
     
-    <meta property="og:title" content="ECOS | Víctor Carvajal - Visión & Impacto">
-    <meta property="og:description" content="Estrategia, Diseño y Desarrollo de Startups entre Ecuador y Colombia.">
-    <meta property="og:image" content="https://ecos-service.github.io/ecos-branding/share.png">
-    <meta property="og:url" content="https://ecos-service.github.io/ecos-branding/">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -24,132 +19,142 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-touch-callout: none; user-select: none; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; -webkit-touch-callout: none; user-select: none; }
 
-        /* Aviso de protección naranja */
-        #aviso-proteccion {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95); color: var(--accent);
-            padding: 20px 40px; border-radius: 10px; border: 1px solid var(--accent);
-            font-weight: bold; z-index: 9999; display: none; box-shadow: 0 0 30px rgba(251, 145, 50, 0.3);
+        /* HEADER */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 20px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--glass);
         }
+        .nav-logo { height: 25px; }
+        .nav-links a { color: var(--text); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-left: 20px; font-weight: 700; }
 
-        /* Hero */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #150d05 0%, #000 100%); padding: 0 5%; }
-        .hero-logo { width: 320px; max-width: 85%; margin-bottom: 25px; }
-        .hero h1 { font-weight: 300; letter-spacing: 8px; color: var(--text-dim); font-size: 0.9rem; margin-bottom: 40px; text-transform: uppercase; }
+        /* HERO */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; }
+        .hero-logo { width: 300px; max-width: 80%; margin-bottom: 20px; }
+        .hero h1 { font-weight: 300; letter-spacing: 5px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 30px; }
 
-        /* Portafolio Bento con Protección */
+        /* BENTO GRID */
         .portfolio { padding: 100px 5%; }
-        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 250px); gap: 15px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 220px); gap: 15px; }
         .bento-item { position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); }
-        .bento-item::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: rgba(0,0,0,0); }
-        .bento-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: 0.5s; filter: brightness(0.9); }
-        .bento-item:hover img { transform: scale(1.05); filter: brightness(1); }
+        .bento-item::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; }
+        .bento-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: 0.5s; }
         .span-2-2 { grid-column: span 2; grid-row: span 2; }
         .span-2-1 { grid-column: span 2; }
 
-        /* Contacto y Redes */
-        .contact { padding: 100px 5%; background: #000; text-align: center; }
-        .contact-box { background: var(--bg-card); padding: 50px 30px; border-radius: 20px; border: 1px solid #1a1a1a; max-width: 600px; margin: 0 auto; box-shadow: 0 10px 50px rgba(0,0,0,0.5); }
+        /* CONTACTO FORMULARIO */
+        .contact { padding: 80px 5%; text-align: center; }
+        .contact-box { background: var(--bg-card); padding: 40px 30px; border-radius: 20px; border: 1px solid #1a1a1a; max-width: 500px; margin: 0 auto; }
         
-        .social-container { margin-top: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .social-btn { display: flex; align-items: center; gap: 10px; padding: 15px 25px; background: transparent; border: 1px solid var(--accent); color: var(--text); text-decoration: none; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; }
-        .social-btn i { color: var(--accent); font-size: 1.1rem; }
-        .social-btn:hover { background: var(--accent); color: #000; transform: translateY(-5px); box-shadow: 0 5px 20px rgba(251, 145, 50, 0.3); }
-        .social-btn:hover i { color: #000; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; font-weight: 700; }
+        
+        select, input { 
+            width: 100%; padding: 15px; background: #000; border: 1px solid #333; 
+            color: #fff; border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s;
+        }
+        select:focus, input:focus { border-color: var(--accent); }
 
-        .btn-main { background: var(--accent); color: white; padding: 20px 40px; border-radius: 5px; font-weight: 700; text-transform: uppercase; cursor: pointer; border: none; width: auto; transition: 0.3s; text-decoration: none; display: inline-block; letter-spacing: 2px; }
-        .btn-main:hover { background: #e67e22; transform: scale(1.02); }
-        
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; width: 65px; height: 65px; text-align: center; line-height: 70px; font-size: 30px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        
-        footer { padding: 60px 5%; text-align: center; color: var(--text-dim); font-size: 0.75rem; border-top: 1px solid #111; letter-spacing: 1px; }
+        .btn-main { 
+            background: var(--accent); color: white; padding: 18px; border-radius: 8px; 
+            font-weight: 700; text-transform: uppercase; cursor: pointer; border: none; 
+            width: 100%; margin-top: 10px; transition: 0.3s; letter-spacing: 1px;
+        }
+        .btn-main:hover { background: #e67e22; transform: translateY(-2px); }
 
-        @media (max-width: 800px) {
+        .social-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px; 
+            padding: 15px; border: 1px solid #333; color: var(--text); text-decoration: none; 
+            border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; 
+            margin-top: 20px; transition: 0.3s; 
+        }
+        .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        footer { padding: 40px; text-align: center; color: var(--text-dim); font-size: 0.7rem; letter-spacing: 1px; }
+
+        @media (max-width: 768px) {
             .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-            .span-2-2, .span-2-1 { grid-column: span 2; height: 350px; }
-            .social-btn { width: 100%; justify-content: center; }
+            .span-2-2, .span-2-1 { grid-column: span 2; height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="aviso-proteccion">Contenido protegido por ECOS Branding Studio</div>
+    <header>
+        <img src="logo-rosa.svg" alt="ECOS" class="nav-logo">
+        <div class="nav-links">
+            <a href="#proyectos">Proyectos</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </header>
 
     <section class="hero">
-        <img src="logo-rosa.svg" alt="ECOS Branding" class="hero-logo">
+        <img src="logo-rosa.svg" alt="ECOS" class="hero-logo">
         <h1>Visión · Impacto · Permanencia</h1>
-        <a href="#contacto" class="btn-main">Consultoría Estratégica</a>
+        <a href="#contacto" class="btn-main" style="width: auto; padding: 15px 40px;">Consultoría Estratégica</a>
     </section>
 
     <section class="portfolio" id="proyectos">
         <div class="bento-grid">
-            <div class="bento-item span-2-2"><img src="m1.png" alt="Branding"></div>
-            <div class="bento-item"><img src="m2.png" alt="Management"></div>
-            <div class="bento-item"><img src="m3.png" alt="Design"></div>
-            <div class="bento-item span-2-1"><img src="m4.png" alt="Strategy"></div>
-            <div class="bento-item"><img src="m5.png" alt="Startups"></div>
-            <div class="bento-item"><img src="m6.png" alt="Production"></div>
-            <div class="bento-item span-2-1"><img src="m7.png" alt="Talent"></div>
-            <div class="bento-item"><img src="m8.png" alt="Impact"></div>
+            <div class="bento-item span-2-2"><img src="m1.png"></div>
+            <div class="bento-item"><img src="m2.png"></div>
+            <div class="bento-item"><img src="m3.png"></div>
+            <div class="bento-item span-2-1"><img src="m4.png"></div>
+            <div class="bento-item"><img src="m5.png"></div>
+            <div class="bento-item"><img src="m6.png"></div>
+            <div class="bento-item span-2-1"><img src="m7.png"></div>
+            <div class="bento-item"><img src="m8.png"></div>
         </div>
     </section>
 
     <section class="contact" id="contacto">
         <div class="contact-box">
-            <h2 style="margin-bottom: 30px; font-size: 2rem; font-weight: 300; letter-spacing: 3px;">Eleva tu impacto</h2>
-            <p style="color: var(--text-dim); margin-bottom: 35px; font-size: 0.9rem;">Agenda una sesión estratégica para el desarrollo de tu Startup o gestión de imagen profesional.</p>
+            <h2 style="margin-bottom: 25px; font-weight: 300; letter-spacing: 2px;">ELEVA TU IMPACTO</h2>
             
-            <a href="javascript:void(0);" onclick="whatsappFlotante()" class="btn-main">Escribir a WhatsApp</a>
-            
-            <div class="social-container">
-                <a href="https://www.instagram.com/ecosbranding?igsh=MW1vYnFhbzF0bHVoeQ==" target="_blank" class="social-btn">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i> LinkedIn
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-tiktok"></i> TikTok
-                </a>
+            <div class="form-group">
+                <label>Tu Nombre</label>
+                <input type="text" id="nombre" placeholder="Ej. Víctor Carvajal">
             </div>
+
+            <div class="form-group">
+                <label>Servicio Requerido</label>
+                <select id="servicio">
+                    <option value="Desarrollo de Startups">Desarrollo de Startups</option>
+                    <option value="Management de Modelos">Management de Modelos</option>
+                    <option value="Branding & Estrategia">Branding & Estrategia</option>
+                </select>
+            </div>
+
+            <button onclick="enviarWhatsApp()" class="btn-main">Enviar a WhatsApp</button>
+            
+            <a href="https://www.instagram.com/ecosbranding?igsh=MW1vYnFhbzF0bHVoeQ==" target="_blank" class="social-btn">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
         </div>
     </section>
 
-    <a href="javascript:void(0);" onclick="whatsappFlotante()" class="whatsapp-float">
+    <a href="javascript:void(0);" onclick="enviarWhatsApp()" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <footer>
-        <p>© 2026 ECOS BRANDING STUDIO | DISEÑADO POR VICTOR CARVAJAL</p>
+        <p>© 2026 ECOS BRANDING STUDIO</p>
     </footer>
 
     <script>
-        function whatsappFlotante() {
-            const msj = encodeURIComponent("Hola Víctor, me interesa elevar el impacto de mi proyecto a través de ECOS. Vi tu trayectoria en startups y management, y me gustaría agendar una consultoría estratégica.");
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('nombre').value || "Interesado";
+            const servicio = document.getElementById('servicio').value;
+            const msj = encodeURIComponent(`Hola Víctor, mi nombre es ${nombre}. Me interesa el servicio de ${servicio} para elevar el impacto de mi proyecto con ECOS.`);
             window.open(`https://wa.me/593979010077?text=${msj}`, '_blank');
         }
 
-        // --- SEGURIDAD AVANZADA ---
-        document.addEventListener('contextmenu', e => {
-            e.preventDefault();
-            const aviso = document.getElementById('aviso-proteccion');
-            aviso.style.display = 'block';
-            setTimeout(() => { aviso.style.display = 'none'; }, 2000);
-        });
-
-        document.addEventListener('keydown', e => {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) {
-                e.preventDefault();
-                return false;
-            }
-        });
-
-        document.addEventListener('dragstart', e => {
-            if (e.target.nodeName === 'IMG') e.preventDefault();
-        });
+        document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
 </html>
