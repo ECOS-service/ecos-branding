@@ -225,75 +225,86 @@
     </a>
 
     <a id="wa-btn" href="#">SOLICITAR ACCESO ÉLITE</a>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
+    // --- MOTOR DE PARTÍCULAS HÍBRIDO (RATÓN + TÁCTIL) ---
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let pts = [];
+let mouse = { x: null, y: null };
 
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let pts = [];
+// 1. Detección de Ratón (PC)
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
 
-        function initParticles() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            pts = [];
-            for(let i=0; i<60; i++) {
-                pts.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5
-                });
+// 2. Detección de Dedo (Móvil)
+window.addEventListener('touchmove', (e) => {
+    // Evitamos que la pantalla salte al mover el dedo sobre las partículas
+    if(e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }
+}, { passive: false });
+
+// 3. Resetear al soltar o salir
+const resetMouse = () => { mouse.x = null; mouse.y = null; };
+window.addEventListener('touchend', resetMouse);
+window.addEventListener('mouseout', resetMouse);
+
+function initParticles() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    pts = [];
+    // Reducimos un poco la cantidad en móvil para que no pierda velocidad
+    const count = window.innerWidth < 768 ? 40 : 65; 
+    
+    for(let i=0; i<count; i++) {
+        pts.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4
+        });
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ff5a81';
+    
+    pts.forEach((p, i) => {
+        p.x += p.vx; p.y += p.vy;
+
+        // Lógica de interacción (Atracción)
+        if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - p.x;
+            let dy = mouse.y - p.y;
+            let dist = Math.hypot(dx, dy);
+            
+            // Radio de influencia: 180px para que se note el efecto con el dedo
+            if (dist < 180) {
+                p.x += dx * 0.03; 
+                p.y += dy * 0.03;
             }
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ff5a81';
-            pts.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); ctx.fill();
-                for(let j=i+1; j<pts.length; j++) {
-                    let d = Math.hypot(p.x - pts[j].x, p.y - pts[j].y);
-                    if(d < 150) {
-                        ctx.strokeStyle = `rgba(255, 90, 129, ${0.15 - d/1000})`;
-                        ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(animate);
-        }
+        if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        function init() {
-            initParticles(); animate();
-            AOS.init({ duration: 1000, once: true });
-            setTimeout(() => { document.getElementById('intro').style.transform = "translateY(-100%)"; }, 2500);
-        }
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); ctx.fill();
 
-        window.onresize = initParticles;
-
-        const selected = new Set();
-        const btn = document.getElementById('wa-btn');
-
-        function toggleCard(el, val) {
-            if(selected.has(val)) {
-                selected.delete(val);
-                el.classList.remove('active');
-            } else if(selected.size < 3) {
-                selected.add(val);
-                el.classList.add('active');
-            }
-
-            if(selected.size === 3) {
-                btn.style.display = 'block';
-                btn.href = `https://wa.me/593979010077?text=Acceso%20ECOS:%20Interés%20en%20${Array.from(selected).join(', ')}`;
-            } else {
-                btn.style.display = 'none';
+        for(let j=i+1; j<pts.length; j++) {
+            let d = Math.hypot(p.x - pts[j].x, p.y - pts[j].y);
+            if(d < 150) {
+                ctx.strokeStyle = `rgba(255, 90, 129, ${0.18 - d/800})`;
+                ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
             }
         }
-    </script>
+    });
+    requestAnimationFrame(animate);
+}
+
 </body>
 </html>
