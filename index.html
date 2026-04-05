@@ -3,283 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ECOS | Strategic Asset Systems</title>
+    <title>ECOS | Elite Asset Systems</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root { 
             --pink: #ff5a81; 
-            --pink-glow: rgba(255, 90, 129, 0.5);
-            --dark-bg: #030303;
-            --glass-bg: rgba(255, 255, 255, 0.02);
+            --pink-glow: rgba(255, 90, 129, 0.4);
+            --dark-pure: #020202;
+            --card-bg: #0a0a0a;
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
         
         body {
-            background-color: var(--dark-bg); color: #fff;
+            background-color: var(--dark-pure); color: #fff;
             font-family: 'Inter', sans-serif; overflow-x: hidden;
-            scroll-behavior: smooth;
+            line-height: 1.5;
         }
 
-        /* --- BARRA DE PROGRESO DE LECTURA --- */
-        #scroll-progress {
-            position: fixed; top: 0; left: 0; height: 4px; background: var(--pink);
-            z-index: 1000; width: 0%; box-shadow: 0 0 20px var(--pink);
+        /* --- BARRA DE PROGRESO CINEMÁTICA --- */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--pink));
+            z-index: 2000; width: 0%; box-shadow: 0 0 15px var(--pink);
         }
 
-        /* --- ARQUITECTURA 3D VIVA (FONDO NEURAL) --- */
-        #neural-canvas {
+        /* --- ARQUITECTURA DE FONDO (CANVAS) --- */
+        #neural-net {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; opacity: 0.4;
+            z-index: 1; pointer-events: none; opacity: 0.35;
         }
 
-        /* --- HERO: IMPACTO INICIAL --- */
+        /* --- HERO: PROFUNDIDAD PARALLAX --- */
         .hero {
             height: 100vh; display: flex; flex-direction: column; align-items: center; 
             justify-content: center; position: relative; z-index: 10;
         }
 
-        .logo-container {
-            width: 320px; transition: 0.1s transform ease-out;
-            filter: drop-shadow(0 0 40px var(--pink-glow));
-            margin-bottom: 40px; z-index: 5;
+        .logo-wrap {
+            width: 340px; filter: drop-shadow(0 0 50px var(--pink-glow));
+            z-index: 5; will-change: transform;
         }
-        .logo-container img { width: 100%; height: auto; }
+        .logo-wrap img { width: 100%; height: auto; }
 
-        .hero h1 { 
-            font-family: 'Montserrat'; font-size: 4.5rem; letter-spacing: 15px; 
-            background: linear-gradient(to bottom, #fff, #666);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .hero-title { 
+            font-family: 'Montserrat'; font-size: 0.7rem; letter-spacing: 10px; color: var(--pink);
+            margin-top: 30px; text-transform: uppercase; font-weight: 400;
         }
-        .hero p { color: var(--pink); letter-spacing: 8px; font-weight: 200; font-size: 0.8rem; text-transform: uppercase; }
 
-        /* --- NARRATIVA DE ÉLITE: ASSET INTELLIGENCE --- */
-        .container { position: relative; z-index: 20; max-width: 1100px; margin: 0 auto; padding: 0 30px; }
+        /* --- SECCIÓN ESTRATÉGICA --- */
+        .container { position: relative; z-index: 20; max-width: 1050px; margin: 0 auto; padding: 0 25px; }
         
-        .elite-section {
-            padding: 120px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        .grid-split {
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center;
+            padding: 150px 0;
         }
 
-        .stats-box {
-            background: var(--glass-bg); border-left: 2px solid var(--pink);
-            padding: 50px; border-radius: 0 40px 40px 0; backdrop-filter: blur(20px);
+        .text-block h2 { font-family: 'Montserrat'; font-size: 3rem; margin-bottom: 30px; line-height: 0.9; letter-spacing: -1px; }
+        .text-block p { font-size: 1.1rem; opacity: 0.7; font-weight: 300; border-left: 1px solid var(--pink); padding-left: 25px; }
+
+        .stat-card {
+            background: rgba(255,255,255,0.03); padding: 40px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+        }
+        .stat-val { font-family: 'Montserrat'; font-size: 3.5rem; color: var(--pink); display: block; line-height: 1; }
+        .stat-lab { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.5; text-transform: uppercase; margin-top: 10px; display: block; }
+
+        /* --- EJE DE SOLUCIONES (INTERACTIVO) --- */
+        .config-panel { padding-bottom: 150px; text-align: center; }
+        .badge {
+            display: inline-block; padding: 12px 30px; border-radius: 50px;
+            background: #111; border: 1px solid #222; font-size: 0.7rem; 
+            font-weight: 800; letter-spacing: 3px; margin-bottom: 50px; transition: 0.4s;
+        }
+        .badge.active { background: var(--pink); border-color: #fff; color: #000; box-shadow: 0 10px 30px var(--pink-glow); }
+
+        .asset-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
+            max-width: 440px; margin: 0 auto;
         }
 
-        .stat-item { margin-bottom: 30px; }
-        .stat-number { font-family: 'Montserrat'; font-size: 3rem; color: var(--pink); display: block; }
-        .stat-desc { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.6; text-transform: uppercase; }
-
-        .content-text h2 { font-family: 'Montserrat'; font-size: 2.5rem; margin-bottom: 25px; line-height: 1.1; }
-        .content-text p { font-size: 1.05rem; line-height: 1.8; opacity: 0.8; font-weight: 300; }
-
-        /* --- SISTEMA DE ACTIVOS: TARJETAS 3D --- */
-        .selector-header { text-align: center; margin-bottom: 60px; }
-        .status-badge {
-            display: inline-block; padding: 10px 35px; border-radius: 100px;
-            border: 1px solid #333; font-size: 0.75rem; font-weight: 700;
-            letter-spacing: 3px; margin-bottom: 20px; transition: 0.5s;
+        .asset-item {
+            background: var(--card-bg); border: 1px solid #151515; border-radius: 24px;
+            padding: 45px 10px; cursor: pointer; transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative; overflow: hidden;
         }
-        .status-badge.active { border-color: var(--pink); background: var(--pink); color: #000; box-shadow: 0 0 30px var(--pink-glow); }
+        .asset-item h4 { font-size: 0.7rem; font-weight: 900; letter-spacing: 1.5px; color: #444; position: relative; z-index: 2; }
 
-        .grid-assets {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-            max-width: 450px; margin: 0 auto; perspective: 1200px;
+        .asset-item:hover { border-color: #333; transform: translateY(-5px); }
+        .asset-item.selected {
+            background: #fff; border: none; transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(255,255,255,0.1);
         }
+        .asset-item.selected h4 { color: #000; }
 
-        .asset-card {
-            background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 20px;
-            padding: 45px 15px; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            transform-style: preserve-3d; position: relative; overflow: hidden;
-            text-align: center;
-        }
-        .asset-card h4 { font-size: 0.65rem; font-weight: 900; letter-spacing: 2px; color: #555; }
-
-        .asset-card:hover { border-color: #333; transform: translateZ(30px) rotateX(5deg); }
-        .asset-card.selected {
-            background: #fff; border: none; transform: scale(1.05) translateZ(50px);
-            box-shadow: 0 25px 60px rgba(255,255,255,0.15);
-        }
-        .asset-card.selected h4 { color: #000; }
-
-        /* --- BOTÓN DE ACCESO ESTRATÉGICO --- */
-        .btn-access {
-            display: none; background: #fff; color: #000; width: 100%; max-width: 450px;
-            padding: 25px; border-radius: 100px; text-decoration: none; font-weight: 900;
-            margin: 60px auto 0; letter-spacing: 4px; font-size: 0.9rem; text-align: center;
-            box-shadow: 0 30px 60px rgba(255,255,255,0.1);
-            animation: fadeIn 0.8s ease forwards;
+        /* --- BOTÓN DE CIERRE ÉLITE --- */
+        .cta-elite {
+            display: none; background: #fff; color: #000; width: 100%; max-width: 440px;
+            padding: 26px; border-radius: 100px; text-decoration: none; font-weight: 900;
+            margin: 60px auto 0; letter-spacing: 5px; font-size: 0.85rem; text-align: center;
+            box-shadow: 0 20px 40px rgba(255,255,255,0.05);
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .wa-float {
-            position: fixed; bottom: 40px; right: 40px;
-            background: #25d366; width: 75px; height: 75px; border-radius: 50%;
+        .wa-icon {
+            position: fixed; bottom: 35px; right: 35px;
+            background: #25d366; width: 70px; height: 70px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 100;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); z-index: 100; transition: 0.3s;
         }
+        .wa-icon:hover { transform: scale(1.1); }
 
         footer {
-            padding: 150px 20px; text-align: center; border-top: 1px solid #111;
+            padding: 120px 20px; text-align: center; border-top: 1px solid #111;
             background: #000; position: relative; z-index: 20;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounceIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div id="scroll-progress"></div>
-    <canvas id="neural-canvas"></canvas>
+    <div id="progress-bar"></div>
+    <canvas id="neural-net"></canvas>
 
     <section class="hero">
-        <div class="logo-container" id="interactiveLogo">
-            <img src="logo-rosa.svg" alt="ECOS Strategic Solutions">
+        <div class="logo-wrap" id="heroLogo">
+            <img src="logo-rosa.svg" alt="ECOS Logo">
         </div>
-        <p data-aos="fade-up">SISTEMA OPERATIVO DE ACTIVOS</p>
+        <div class="hero-title" data-aos="fade-up">Asset Intelligence Systems</div>
     </section>
 
     <div class="container">
-        <section class="elite-section">
-            <div class="content-text" data-aos="fade-right">
-                <span style="color:var(--pink); font-size: 0.7rem; font-weight: 900; letter-spacing: 5px;">01. INFRAESTRUCTURA</span>
-                <h2>ASSET INTELLIGENCE</h2>
+        <section class="grid-split">
+            <div class="text-block" data-aos="fade-right">
+                <h2 style="font-family:'Montserrat'">INGENIERÍA <br>DE MARCA</h2>
                 <p>
-                    Desde 2019, hemos transformado la interacción digital en activos tangibles. Con presencia estratégica en <strong>Ecuador y Colombia</strong>, ECOS es el sistema operativo definitivo que blinda la identidad de marca mediante ingeniería visual y fidelización premium.
+                    Desde 2019, ECOS ha redefinido el estándar de interacción técnica y visual. Como división de sistemas de <strong>ORCA Studios</strong>, blindamos la presencia de marcas élite en Ecuador y Colombia mediante soluciones PWA y gestión de activos de alta fidelización.
                 </p>
             </div>
-            <div class="stats-box" data-aos="fade-left">
-                <div class="stat-item">
-                    <span class="stat-number">+20</span>
-                    <span class="stat-desc">Marcas Asesoradas</span>
+            <div class="stat-card" data-aos="fade-left">
+                <div style="margin-bottom: 40px;">
+                    <span class="stat-val">20+</span>
+                    <span class="stat-lab">Marcas Blindadas</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">2019</span>
-                    <span class="stat-desc">Trayectoria AVUS</span>
+                <div>
+                    <span class="stat-val">2019</span>
+                    <span class="stat-lab">Origen AVUS</span>
                 </div>
             </div>
         </section>
 
-        <section class="selector-section" style="padding-bottom: 150px;">
-            <div class="selector-header">
-                <div id="status" class="status-badge">SISTEMA: EN ESPERA DE CONFIGURACIÓN</div>
-                <h2 style="font-family:'Montserrat'; letter-spacing: 2px;">EJE DE SOLUCIONES</h2>
-            </div>
+        <section class="config-panel">
+            <div id="badge-status" class="badge">ESTADO: SELECCIONE 3 ACTIVOS</div>
             
-            <div class="grid-assets">
-                <div class="asset-card" data-name="Fidelización"><h4>FIDELIZACIÓN</h4></div>
-                <div class="asset-card" data-name="Branding"><h4>BRANDING</h4></div>
-                <div class="asset-card" data-name="Activos"><h4>ACTIVOS</h4></div>
-                <div class="asset-card" data-name="Web Pro"><h4>WEB PRO</h4></div>
-                <div class="asset-card" data-name="Marketing"><h4>MARKETING</h4></div>
-                <div class="asset-card" data-name="Audiovisual"><h4>VIDEO</h4></div>
-                <div class="asset-card" data-name="Identidad"><h4>IDENTIDAD</h4></div>
-                <div class="asset-card" data-name="Estrategia"><h4>ESTRATEGIA</h4></div>
-                <div class="asset-card" data-name="Eventos"><h4>EVENTOS</h4></div>
-                <div class="asset-card" data-name="BTL"><h4>BTL</h4></div>
-                <div class="asset-card" data-name="UI/UX"><h4>UI/UX</h4></div>
-                <div class="asset-card" data-name="Social"><h4>SOCIAL</h4></div>
+            <div class="asset-grid">
+                <div class="asset-item" data-name="Fidelización"><h4>FIDELIZACIÓN</h4></div>
+                <div class="asset-item" data-name="Branding"><h4>BRANDING</h4></div>
+                <div class="asset-item" data-name="Activos"><h4>ACTIVOS</h4></div>
+                <div class="asset-item" data-name="Web Pro"><h4>WEB PRO</h4></div>
+                <div class="asset-item" data-name="Marketing"><h4>MARKETING</h4></div>
+                <div class="asset-item" data-name="Audiovisual"><h4>VIDEO</h4></div>
+                <div class="asset-item" data-name="Identidad"><h4>IDENTIDAD</h4></div>
+                <div class="asset-item" data-name="Estrategia"><h4>ESTRATEGIA</h4></div>
+                <div class="asset-item" data-name="Eventos"><h4>EVENTOS</h4></div>
+                <div class="asset-item" data-name="BTL"><h4>BTL</h4></div>
+                <div class="asset-item" data-name="UI/UX"><h4>UI/UX</h4></div>
+                <div class="asset-item" data-name="Social"><h4>SOCIAL</h4></div>
             </div>
 
-            <a href="#" id="accessBtn" class="btn-access">SOLICITAR ACCESO ESTRATÉGICO</a>
+            <a href="#" id="finalCta" class="cta-elite">SOLICITAR ACCESO ESTRATÉGICO</a>
         </section>
     </div>
 
-    <a href="#" class="wa-float" id="waLink" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="40" alt="WhatsApp">
+    <a href="#" class="wa-icon" id="waButton" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WA">
     </a>
 
     <footer>
-        <img src="logo-rosa.svg" width="120" style="opacity: 0.5; margin-bottom: 20px;">
-        <p style="opacity: 0.3; letter-spacing: 10px; font-size: 0.6rem;">QUITO • MEDELLÍN • 2026</p>
+        <img src="logo-rosa.svg" width="100" style="opacity: 0.4; margin-bottom: 25px;">
+        <p style="opacity: 0.2; letter-spacing: 8px; font-size: 0.6rem;">QUITO • MEDELLÍN • 2026</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
+        AOS.init({ duration: 800, once: true });
 
-        // --- ARQUITECTURA 3D VIVA (CODE) ---
-        const canvas = document.getElementById('neural-canvas');
+        // --- ARQUITECTURA DINÁMICA ---
+        const canvas = document.getElementById('neural-net');
         const ctx = canvas.getContext('2d');
-        let points = [];
+        let dots = [];
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            points = [];
-            for(let i=0; i<85; i++) {
-                points.push({
+            dots = [];
+            for(let i=0; i<70; i++) {
+                dots.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
                 });
             }
         }
 
-        function draw() {
+        function render() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#ff5a81';
-            points.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2); ctx.fill();
-                for(let j=i+1; j<points.length; j++) {
-                    let p2 = points[j];
-                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if(d < 130) {
-                        ctx.strokeStyle = `rgba(255, 90, 129, ${1 - d/130})`;
-                        ctx.lineWidth = 0.4; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            dots.forEach((d, i) => {
+                d.x += d.vx; d.y += d.vy;
+                if(d.x < 0 || d.x > canvas.width) d.vx *= -1;
+                if(d.y < 0 || d.y > canvas.height) d.vy *= -1;
+                ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI*2); ctx.fill();
+                for(let j=i+1; j<dots.length; j++) {
+                    let d2 = dots[j];
+                    let dist = Math.hypot(d.x - d2.x, d.y - d2.y);
+                    if(dist < 140) {
+                        ctx.strokeStyle = `rgba(255, 90, 129, ${0.8 - dist/140})`;
+                        ctx.lineWidth = 0.3; ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d2.x, d2.y); ctx.stroke();
                     }
                 }
             });
-            requestAnimationFrame(draw);
+            requestAnimationFrame(render);
         }
-        init(); draw(); window.onresize = init;
+        init(); render(); window.onresize = init;
 
-        // --- FEEDBACK INMERSIVO: LOGO & PROGRESS ---
+        // --- MANEJO DE SCROLL & PARALLAX ---
         window.addEventListener('scroll', () => {
-            const h = document.documentElement, b = document.body;
-            const pct = (h.scrollTop || b.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-            document.getElementById('scroll-progress').style.width = pct + '%';
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
             
-            const logo = document.getElementById('interactiveLogo');
-            logo.style.transform = `rotate(${window.scrollY / 15}deg) translateY(${window.scrollY / 12}px)`;
+            const logo = document.getElementById('heroLogo');
+            logo.style.transform = `translateY(${winScroll * 0.3}px) rotate(${winScroll * 0.05}deg)`;
+            logo.style.opacity = 1 - (winScroll / 700);
         });
 
-        // --- LÓGICA DE SELECCIÓN ÉLITE ---
-        const selected = new Set();
-        const cards = document.querySelectorAll('.asset-card');
-        const status = document.getElementById('status');
-        const accessBtn = document.getElementById('accessBtn');
-        const waLink = document.getElementById('waLink');
+        // --- LÓGICA DE SELECCIÓN ---
+        const activeSet = new Set();
+        const items = document.querySelectorAll('.asset-item');
+        const badge = document.getElementById('badge-status');
+        const cta = document.getElementById('finalCta');
+        const wa = document.getElementById('waButton');
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const name = card.getAttribute('data-name');
-                if (selected.has(name)) {
-                    selected.delete(name);
-                    card.classList.remove('selected');
-                } else if (selected.size < 3) {
-                    selected.add(name);
-                    card.classList.add('selected');
-                    if(navigator.vibrate) navigator.vibrate(40);
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const name = item.getAttribute('data-name');
+                if (activeSet.has(name)) {
+                    activeSet.delete(name);
+                    item.classList.remove('selected');
+                } else if (activeSet.size < 3) {
+                    activeSet.add(name);
+                    item.classList.add('selected');
+                    if(navigator.vibrate) navigator.vibrate(30);
                 }
                 
-                if(selected.size === 3) {
-                    status.innerText = "CONFIGURACIÓN AUTORIZADA";
-                    status.classList.add('active');
-                    accessBtn.style.display = 'block';
-                    waLink.style.display = 'flex';
-                    const msg = encodeURIComponent(`Configuración ECOS: ${Array.from(selected).join(', ')}. Solicito Sesión Estratégica.`);
-                    accessBtn.href = waLink.href = `https://wa.me/593979010077?text=${msg}`;
+                if(activeSet.size === 3) {
+                    badge.innerText = "SISTEMA INTEGRADO";
+                    badge.classList.add('active');
+                    cta.style.display = 'block';
+                    wa.style.display = 'flex';
+                    const link = `https://wa.me/593979010077?text=${encodeURIComponent('ECOS SYSTEM: He configurado mi red con: ' + Array.from(activeSet).join(', ') + '. Requiero Sesión Estratégica.')}`;
+                    cta.href = wa.href = link;
                 } else {
-                    status.innerText = `SELECCIÓN: ${selected.size} DE 3 EJES`;
-                    status.classList.remove('active');
-                    accessBtn.style.display = 'none';
-                    waLink.style.display = 'none';
+                    badge.innerText = `CONFIGURACIÓN: ${activeSet.size} DE 3`;
+                    badge.classList.remove('active');
+                    cta.style.display = 'none';
+                    wa.style.display = 'none';
                 }
             });
         });
