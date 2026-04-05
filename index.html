@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ECOS | Strategic OS</title>
+    <title>ECOS | Inteligencia Estratégica</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -16,15 +16,22 @@
             --border: rgba(255, 255, 255, 0.08); 
         }
 
-        /* --- BASE --- */
+        /* --- BASE Y SEGURIDAD --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-
-        /* --- FONDO DINÁMICO DE PARTÍCULAS --- */
-        #bg-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none; opacity: 0.6;
+        body { 
+            background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden;
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; /* Bloqueo de selección */
         }
+
+        /* Bloqueo específico de imágenes */
+        img { 
+            pointer-events: none; 
+            -webkit-touch-callout: none; 
+            -webkit-user-drag: none; 
+        }
+
+        /* --- FONDO DINÁMICO --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.6; }
 
         /* --- NAV / LOGO --- */
         nav { 
@@ -33,7 +40,7 @@
             z-index: 1000; backdrop-filter: blur(10px); 
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
         }
-        .nav-logo { width: 70px; filter: drop-shadow(0 0 10px var(--pink)); }
+        .nav-logo { width: 70px; filter: drop-shadow(0 0 10px var(--pink)); pointer-events: none; }
 
         /* --- INTRO REVEAL --- */
         #intro {
@@ -55,7 +62,7 @@
             color: var(--pink); text-transform: uppercase; margin-top: 30px; 
         }
 
-        /* --- SECCIONES MOCKUPS (M1-M4 .PNG) --- */
+        /* --- SECCIONES MOCKUPS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 100px 6%; position: relative; z-index: 10; }
         
         .showcase { 
@@ -71,10 +78,9 @@
             border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
         .showcase-img img { width: 100%; height: auto; display: block; transition: 0.8s; }
-        .showcase-img:hover img { transform: scale(1.08); filter: brightness(1.2); }
 
-        /* --- EJE DE SOLUCIONES (TRANSPARENCIA AL SELECCIONAR) --- */
-        .os-grid-section { text-align: center; padding-bottom: 150px; position: relative; z-index: 10; }
+        /* --- EJE DE SOLUCIONES --- */
+        .os-grid-section { text-align: center; padding-bottom: 100px; position: relative; z-index: 10; }
         .os-grid-section h3 { font-family: 'Montserrat'; font-size: 0.8rem; letter-spacing: 6px; opacity: 0.3; margin-bottom: 40px; }
         
         .grid-12 { 
@@ -89,7 +95,6 @@
         }
         .card h4 { font-size: 0.6rem; letter-spacing: 3px; color: #444; font-weight: 900; }
         
-        /* EFECTO TRANSPARENTE AL SELECCIONAR */
         .card.active { 
             background: rgba(255, 90, 129, 0.15); 
             border: 1px solid var(--pink); 
@@ -98,16 +103,19 @@
         }
         .card.active h4 { color: #fff; text-shadow: 0 0 10px var(--pink); }
 
-        /* --- BOTÓN WHATSAPP FLOTANTE PERMANENTE --- */
+        /* --- FOOTER DERECHOS RESERVADOS --- */
+        footer {
+            padding: 50px 6%; text-align: center; border-top: 1px solid var(--border);
+            position: relative; z-index: 10; opacity: 0.4; font-size: 0.7rem; letter-spacing: 2px;
+        }
+
+        /* --- WHATSAPP Y CTA --- */
         .wa-floating {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: #25d366; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; z-index: 4000;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s;
         }
-        .wa-floating:hover { transform: scale(1.1) rotate(10deg); }
-
-        /* --- CTA ACCESO (APArece al elegir 3) --- */
         #wa-btn { 
             display: none; position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); 
             z-index: 5000; background: #fff; color: #000; padding: 22px 60px; 
@@ -118,7 +126,7 @@
         @media (max-width: 768px) {
             .showcase { grid-template-columns: 1fr; text-align: center; }
             .grid-12 { grid-template-columns: repeat(2, 1fr); }
-            .wa-floating { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .showcase-info h2 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -129,54 +137,54 @@
 
     <nav>
         <img src="logo-rosa.svg" class="nav-logo">
-        <div style="font-size: 0.5rem; letter-spacing: 4px; opacity: 0.4;">ECOS OS V4.0</div>
+        <div style="font-size: 0.5rem; letter-spacing: 4px; opacity: 0.4;">ECOS OS V4.0 • 2026</div>
     </nav>
 
     <section class="hero">
         <img src="logo-rosa.svg" style="width: clamp(200px, 30vw, 350px);">
-        <h1>Strategic Intelligence</h1>
+        <h1>Inteligencia Estratégica</h1>
     </section>
 
     <div class="container">
         <section class="showcase" data-aos="fade-up">
             <div class="showcase-info">
-                <h2>CORE<br><span>INFRA.</span></h2>
-                <p>Desde 2015, bajo la infraestructura de <strong>ORCA Studios</strong>, blindamos activos digitales en Ecuador y Colombia.</p>
+                <h2>INFRAESTRUCTURA<br><span>CORE.</span></h2>
+                <p>Desde 2015, bajo el respaldo de <strong>ORCA Studios</strong>, blindamos la presencia de marcas en Ecuador y Colombia con activos tácticos.</p>
             </div>
-            <div class="showcase-img"><img src="m1.png" alt="Estrategia"></div>
+            <div class="showcase-img"><img src="m1.png" alt="Estratégico"></div>
         </section>
 
         <section class="showcase" data-aos="fade-up" style="direction: rtl;">
             <div class="showcase-info" style="direction: ltr;">
-                <h2>ELITE<br><span>DESIGN.</span></h2>
-                <p>Ingeniería visual para más de 20 marcas. Desarrollamos herramientas de expansión y fidelización premium.</p>
+                <h2>DISEÑO DE<br><span>ÉLITE.</span></h2>
+                <p>Ingeniería visual para más de 20 marcas líderes. Desarrollamos herramientas de expansión y fidelización premium.</p>
             </div>
             <div class="showcase-img"><img src="m2.png" alt="Diseño"></div>
         </section>
 
         <section class="showcase" data-aos="fade-up">
             <div class="showcase-info">
-                <h2>TECH<br><span>SYSTEMS.</span></h2>
-                <p>Interfaces Web Pro y UI/UX de alta fidelidad, optimizadas para conversión y una experiencia inmersiva.</p>
+                <h2>SISTEMAS<br><span>TECH.</span></h2>
+                <p>Interfaces Web Pro y UI/UX de alta fidelidad, optimizadas para una interacción inmersiva y resultados de conversión real.</p>
             </div>
-            <div class="showcase-img"><img src="m3.png" alt="Sistemas"></div>
+            <div class="showcase-img"><img src="m3.png" alt="Tecnología"></div>
         </section>
 
         <section class="showcase" data-aos="fade-up" style="direction: rtl;">
             <div class="showcase-info" style="direction: ltr;">
-                <h2>GLOBAL<br><span>ASSETS.</span></h2>
-                <p>Metodología OS V4.0: Gestión de activos digitales y estrategias BTL enfocadas en resultados de alto impacto.</p>
+                <h2>ACTIVOS<br><span>GLOBALES.</span></h2>
+                <p>Metodología OS V4.0: Gestión de activos digitales y estrategias BTL enfocadas en el posicionamiento de alto impacto.</p>
             </div>
-            <div class="showcase-img"><img src="m4.png" alt="Activos"></div>
+            <div class="showcase-img"><img src="m4.png" alt="Global"></div>
         </section>
 
         <section class="os-grid-section">
-            <h3>SELECT 3 SOLUTIONS</h3>
+            <h3>SELECCIONA 3 SOLUCIONES</h3>
             <div class="grid-12">
                 <div class="card" onclick="toggleCard(this, 'Branding')"><h4>BRANDING</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Web Pro')"><h4>WEB PRO</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Marketing')"><h4>MARKETING</h4></div>
-                <div class="card" onclick="toggleCard(this, 'Video')"><h4>VIDEO</h4></div>
+                <div class="card" onclick="toggleCard(this, 'Producción')"><h4>VIDEO</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Eventos')"><h4>EVENTOS</h4></div>
                 <div class="card" onclick="toggleCard(this, 'BTL')"><h4>BTL</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Estrategia')"><h4>ESTRATEGIA</h4></div>
@@ -184,10 +192,14 @@
                 <div class="card" onclick="toggleCard(this, 'Identidad')"><h4>IDENTIDAD</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Social')"><h4>SOCIAL</h4></div>
                 <div class="card" onclick="toggleCard(this, 'Activos')"><h4>ACTIVOS</h4></div>
-                <div class="card" onclick="toggleCard(this, 'Loyalty')"><h4>FIDELIZACIÓN</h4></div>
+                <div class="card" onclick="toggleCard(this, 'Fidelización')"><h4>FIDELIZACIÓN</h4></div>
             </div>
         </section>
     </div>
+
+    <footer>
+        © 2026 ECOS. TODOS LOS DERECHOS RESERVADOS.
+    </footer>
 
     <a href="https://wa.me/593979010077" class="wa-floating" target="_blank">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -197,6 +209,9 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // BLOQUEO DE CLIC DERECHO
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
         // MOTOR DE PARTÍCULAS
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -243,7 +258,7 @@
 
         window.onresize = initParticles;
 
-        // LÓGICA DE SELECCIÓN (3 OPCIONES)
+        // LÓGICA DE SELECCIÓN
         const selected = new Set();
         const btn = document.getElementById('wa-btn');
 
@@ -258,7 +273,7 @@
 
             if(selected.size === 3) {
                 btn.style.display = 'block';
-                btn.href = `https://wa.me/593979010077?text=ECOS%20OS%20Access:%20${Array.from(selected).join(', ')}`;
+                btn.href = `https://wa.me/593979010077?text=Acceso%20ECOS:%20Interés%20en%20${Array.from(selected).join(', ')}`;
             } else {
                 btn.style.display = 'none';
             }
