@@ -155,17 +155,17 @@
     <footer>© 2026 ECOS. TODOS LOS DERECHOS RESERVADOS.</footer>
 
     <a id="wa-btn" href="#">SOLICITAR ACCESO ÉLITE</a>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // --- TU NUEVO MOTOR DE PARTÍCULAS HÍBRIDO ---
+    // --- MOTOR DE PARTÍCULAS HÍBRIDO ---
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let pts = [];
     let mouse = { x: null, y: null };
 
     window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-
     window.addEventListener('touchmove', (e) => {
         if(e.touches.length > 0) {
             mouse.x = e.touches[0].clientX;
@@ -201,10 +201,7 @@
                 let dx = mouse.x - p.x;
                 let dy = mouse.y - p.y;
                 let dist = Math.hypot(dx, dy);
-                if (dist < 180) {
-                    p.x += dx * 0.03; 
-                    p.y += dy * 0.03;
-                }
+                if (dist < 180) { p.x += dx * 0.03; p.y += dy * 0.03; }
             }
             if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
             if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
@@ -220,12 +217,15 @@
         requestAnimationFrame(animate);
     }
 
-    // --- FUNCIONES MANTENIDAS (INTRO, AOS Y TARJETAS) ---
+    // --- ESTO ES LO QUE FALTA (LÍNEA 215 EN ADELANTE) ---
     function init() { 
         initParticles(); 
         animate(); 
         AOS.init(); 
-        setTimeout(() => document.getElementById('intro').style.transform="translateY(-100%)", 2000); 
+        setTimeout(() => {
+            const intro = document.getElementById('intro');
+            if(intro) intro.style.transform = "translateY(-100%)";
+        }, 2000); 
     }
     
     window.onresize = initParticles;
@@ -233,11 +233,19 @@
     const selected = new Set();
     const btn = document.getElementById('wa-btn');
     function toggleCard(el, val) {
-        selected.has(val) ? (selected.delete(val), el.classList.remove('active')) : (selected.size < 3 && (selected.add(val), el.classList.add('active')));
-        if(selected.size === 3) {
-            btn.style.display = 'block';
-            btn.href = `https://wa.me/593979010077?text=Interés en: ${Array.from(selected).join(', ')}`;
-        } else { btn.style.display = 'none'; }
+        if(selected.has(val)) {
+            selected.delete(val);
+            el.classList.remove('active');
+        } else if(selected.size < 3) {
+            selected.add(val);
+            el.classList.add('active');
+        }
+        if(btn) {
+            btn.style.display = (selected.size === 3) ? 'block' : 'none';
+            if(selected.size === 3) {
+                btn.href = `https://wa.me/593979010077?text=Interés en: ${Array.from(selected).join(', ')}`;
+            }
+        }
     }
 </script>
 </body>
