@@ -11,264 +11,216 @@
     <style>
         :root { 
             --pink: #ff5a81; 
-            --pink-glow: rgba(255, 90, 129, 0.4);
-            --dark: #030303; 
-            --card-bg: rgba(10, 10, 10, 0.9);
-            --border: rgba(255, 255, 255, 0.05);
-            --text-main: #ffffff;
+            --pink-glow: rgba(255, 90, 129, 0.5);
+            --dark-pure: #020202;
+            --card-bg: rgba(10, 10, 10, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --white: #ffffff;
         }
 
-        /* --- ARQUITECTURA BASE --- */
+        /* --- RESET DE INGENIERÍA --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        
-        body {
-            background-color: var(--dark); color: var(--text-main);
-            font-family: 'Inter', sans-serif; overflow-x: hidden;
-            line-height: 1.6;
-        }
+        html, body { overflow-x: hidden; width: 100%; background: var(--dark-pure); scroll-behavior: smooth; }
+        body { color: var(--white); font-family: 'Inter', sans-serif; cursor: default; }
 
-        canvas#particle-canvas {
+        /* --- BACKGROUND NEURAL (EFECTO BRUTAL) --- */
+        #neural-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
+            z-index: 1; pointer-events: none; opacity: 0.45;
         }
 
-        /* --- LOGO ENGINE (PRO) --- */
-        .header-container {
-            position: relative; height: 100vh; width: 100%;
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; z-index: 10; padding: 0 20px;
+        /* --- NAV / HEADER ELITE --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            backdrop-filter: blur(5px);
+        }
+        .nav-brand { width: 90px; filter: drop-shadow(0 0 15px var(--pink-glow)); transition: 0.4s; }
+        .nav-brand:hover { transform: scale(1.1) rotate(-3deg); }
+
+        /* --- HERO INTERFACE --- */
+        .hero-os {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; position: relative; z-index: 10; padding: 20px;
         }
 
-        .logo-wrapper {
-            width: clamp(200px, 40vw, 450px); /* Escala perfecta en móvil y PC */
-            position: relative; will-change: transform, filter;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .main-logo-engine {
+            width: clamp(260px, 35vw, 480px);
+            position: relative; will-change: transform;
+            transition: 0.15s cubic-bezier(0.1, 0.5, 0.1, 1);
+        }
+        .main-logo-engine img { width: 100%; height: auto; filter: drop-shadow(0 0 40px var(--pink-glow)); }
+
+        .hero-label {
+            margin-top: 40px; text-align: center;
+        }
+        .hero-label h1 {
+            font-family: 'Montserrat'; font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+            letter-spacing: clamp(10px, 2vw, 18px); color: var(--pink);
+            text-transform: uppercase; animation: trackingIn 2s ease-out;
         }
 
-        .logo-wrapper img {
-            width: 100%; height: auto;
-            filter: drop-shadow(0 0 30px rgba(255, 90, 129, 0.2));
-            animation: logoPulse 4s ease-in-out infinite;
+        @keyframes trackingIn { from { letter-spacing: 0px; opacity: 0; } to { letter-spacing: 18px; opacity: 1; } }
+
+        /* --- CONTENEDOR MAESTRO (RESPONSIVE BLINDADO) --- */
+        .master-container {
+            position: relative; z-index: 100; max-width: 1300px;
+            margin: 0 auto; padding: 120px 6%;
         }
 
-        @keyframes logoPulse {
-            0%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 20px rgba(255, 90, 129, 0.1)); }
-            50% { transform: scale(1.03); filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 90, 129, 0.4)); }
+        .grid-power {
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px;
+            align-items: center; margin-bottom: 200px;
         }
 
-        .hero-title {
-            margin-top: 30px; text-align: center;
+        .giant-headline {
+            font-family: 'Montserrat'; font-size: clamp(2.8rem, 8vw, 6.5rem);
+            line-height: 0.85; letter-spacing: -4px;
         }
+        .giant-headline span { color: var(--pink); text-shadow: 0 0 40px var(--pink-glow); }
 
-        .hero-title h1 {
-            font-family: 'Montserrat'; font-size: clamp(0.6rem, 2vw, 0.9rem);
-            letter-spacing: clamp(8px, 1.5vw, 15px);
-            text-transform: uppercase; color: var(--pink); opacity: 0.8;
+        .side-narrative {
+            border-left: 2px solid var(--pink); padding: 20px 0 20px 40px;
         }
+        .side-narrative p { font-size: 1.2rem; font-weight: 200; opacity: 0.6; line-height: 1.8; }
 
-        /* --- GRID DINÁMICO (RESPONSIVE SEAMLESS) --- */
-        .content-master {
-            position: relative; z-index: 20; width: 100%;
-            max-width: 1400px; margin: 0 auto; padding: 0 5%;
+        /* --- SISTEMA DE SELECCIÓN DE ACTIVOS --- */
+        .solutions-os { text-align: center; margin-bottom: 150px; }
+        .os-tag {
+            display: inline-block; padding: 12px 30px; border-radius: 50px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            font-size: 0.65rem; letter-spacing: 4px; font-weight: 900;
+            margin-bottom: 60px; color: #555; transition: 0.4s;
         }
+        .os-tag.active { background: var(--pink); color: #000; border-color: #fff; box-shadow: 0 0 30px var(--pink-glow); }
 
-        .section-split {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: clamp(40px, 8vw, 120px); align-items: center; min-height: 80vh;
-            padding: 100px 0;
-        }
-
-        .giant-heading {
-            font-family: 'Montserrat'; font-size: clamp(2.5rem, 8vw, 6rem);
-            line-height: 0.9; letter-spacing: -3px; font-weight: 900;
-        }
-        .giant-heading span { color: var(--pink); }
-
-        .body-text {
-            font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 300;
-            opacity: 0.6; border-left: 2px solid var(--pink); padding-left: 30px;
-        }
-
-        /* --- CORE SOLUTIONS GRID --- */
-        .solutions-box { padding: 100px 0; text-align: center; }
-        
-        .grid-asset {
+        .asset-grid-engine {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 15px; margin-top: 60px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px; perspective: 1000px;
         }
 
-        .asset-card {
+        .asset-item {
             background: var(--card-bg); border: 1px solid var(--border);
-            padding: 60px 20px; border-radius: 24px; cursor: pointer;
-            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            position: relative; overflow: hidden;
+            padding: 70px 20px; border-radius: 24px; cursor: pointer;
+            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(10px); position: relative; overflow: hidden;
+        }
+        .asset-item h3 { font-size: 0.75rem; letter-spacing: 2px; font-weight: 900; color: #444; transition: 0.4s; }
+
+        .asset-item:hover {
+            border-color: var(--pink); transform: translateY(-10px) rotateX(5deg);
+            background: rgba(20,20,20,0.9);
+        }
+
+        .asset-item.selected {
+            background: var(--white); border: none; transform: scale(1.05) translateZ(50px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .asset-item.selected h3 { color: #000; }
+
+        /* --- LLAMADO A LA ACCIÓN (PRO) --- */
+        .cta-center { margin-top: 100px; min-height: 120px; display: flex; justify-content: center; }
+        .btn-elite {
+            display: none; padding: 28px 70px; background: var(--white); color: #000;
+            text-decoration: none; font-weight: 900; font-size: 0.85rem;
+            letter-spacing: 6px; border-radius: 100px; text-transform: uppercase;
+            box-shadow: 0 15px 40px rgba(255,255,255,0.1);
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: bounceIn 0.8s;
+        }
+        .btn-elite:hover { background: var(--pink); color: var(--white); transform: scale(1.1); box-shadow: 0 0 50px var(--pink-glow); }
+
+        @keyframes bounceIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- BOTÓN WHATSAPP DE ALTA FIDELIDAD --- */
+        .wa-radar {
+            position: fixed; bottom: 40px; right: 40px; z-index: 5000;
+            width: 75px; height: 75px; background: #25d366; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); transition: 0.4s;
         }
-
-        .asset-card h3 {
-            font-size: 0.7rem; letter-spacing: 3px; font-weight: 900;
-            color: #555; transition: 0.4s;
+        .wa-radar:hover { transform: scale(1.1) rotate(15deg); }
+        .wa-radar::after {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border: 2px solid #25d366; border-radius: 50%;
+            animation: radar 2s linear infinite;
         }
+        @keyframes radar { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
-        .asset-card:hover {
-            border-color: var(--pink); transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .asset-card.active {
-            background: #fff; border: none;
-        }
-        .asset-card.active h3 { color: #000; transform: scale(1.1); }
-
-        /* --- BOTÓN CALL TO ACTION (ELITE) --- */
-        .cta-container {
-            margin-top: 80px; min-height: 100px;
-        }
-
-        .btn-brutal {
-            display: none; position: relative;
-            padding: 25px 60px; background: #fff; color: #000;
-            text-decoration: none; font-weight: 900; border-radius: 100px;
-            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-            transition: 0.4s ease;
-        }
-
-        .btn-brutal:hover {
-            background: var(--pink); color: #fff; transform: scale(1.1);
-            box-shadow: 0 0 50px var(--pink-glow);
-        }
-
-        /* --- FOOTER --- */
+        /* --- FOOTER BRUTAL --- */
         footer {
-            padding: 100px 0; border-top: 1px solid var(--border);
-            text-align: center; opacity: 0.4; font-size: 0.6rem; letter-spacing: 5px;
+            padding: 120px 0; border-top: 1px solid var(--border); text-align: center;
+            background: #000; position: relative; z-index: 100;
         }
+        .f-logo { width: 110px; opacity: 0.3; filter: grayscale(1); margin-bottom: 30px; transition: 0.5s; }
+        .f-logo:hover { opacity: 1; filter: grayscale(0); }
 
-        /* --- MOBILE TWEAKS --- */
-        @media (max-width: 768px) {
-            .section-split { text-align: center; }
-            .body-text { border-left: none; border-top: 2px solid var(--pink); padding: 30px 0 0 0; }
-            .grid-asset { grid-template-columns: repeat(2, 1fr); }
+        /* --- RESPONSIVE MOBILE FIX --- */
+        @media (max-width: 900px) {
+            .grid-power { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .side-narrative { border-left: none; border-top: 1px solid var(--pink); padding: 40px 0 0 0; }
+            .asset-grid-engine { grid-template-columns: repeat(2, 1fr); }
+            .wa-radar { bottom: 25px; right: 25px; width: 60px; height: 60px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="neural-canvas"></canvas>
 
-    <section class="header-container">
-        <div class="logo-wrapper" id="mainLogo">
-            <img src="logo-rosa.svg" alt="ECOS Logo">
+    <nav>
+        <img src="logo-rosa.svg" class="nav-brand" alt="ECOS">
+        <div style="font-size: 0.6rem; letter-spacing: 5px; opacity: 0.4; font-weight: 800;">OS v4.0 | 2026</div>
+    </nav>
+
+    <section class="hero-os">
+        <div class="main-logo-engine" id="logo3D">
+            <img src="logo-rosa.svg" alt="ECOS Elite System">
         </div>
-        <div class="hero-title" data-aos="fade-up">
-            <h1>Strategic Asset Intelligence</h1>
+        <div class="hero-label">
+            <h1>Asset Intelligence Infrastructure</h1>
         </div>
     </section>
 
-    <div class="content-master">
+    <div class="master-container">
         
-        <section class="section-split">
-            <div class="giant-heading" data-aos="fade-right">
-                THE NEXT<br>LEVEL<span>.</span>
+        <section class="grid-power">
+            <div class="giant-headline" data-aos="fade-right">
+                ENGINEERING<br>SUCCESS<span>.</span>
             </div>
-            <div class="body-text" data-aos="fade-left">
-                Desde 2019, bajo la infraestructura técnica de <strong>ORCA Studios</strong>, hemos redefinido la interacción digital. Operando en <strong>Ecuador y Colombia</strong>, construimos sistemas de fidelización que no solo se ven bien, sino que generan valor real.
+            <div class="side-narrative" data-aos="fade-left">
+                <p>
+                    Desde 2015, bajo la infraestructura técnica de <strong>ORCA Studios</strong>, hemos blindado la presencia digital de más de 20 marcas líderes. En <strong>Ecuador y Colombia</strong>, no diseñamos interfaces; desarrollamos ecosistemas de fidelización de alta gama.
+                </p>
             </div>
         </section>
 
-        <section class="solutions-box">
-            <h2 style="font-family: 'Montserrat'; letter-spacing: 8px; opacity: 0.2; font-size: 1.5rem;">SOLUTIONS CORE</h2>
-            <p style="font-size: 0.7rem; letter-spacing: 2px; margin-top: 10px; opacity: 0.5;">SELECCIONA 3 EJES PARA DESBLOQUEAR ACCESO</p>
-
-            <div class="grid-asset" id="assetGrid">
-                <div class="asset-card" data-id="Fidelización"><h3>FIDELIZACIÓN</h3></div>
-                <div class="asset-card" data-id="Branding"><h3>BRANDING</h3></div>
-                <div class="asset-card" data-id="Activos"><h3>ACTIVOS</h3></div>
-                <div class="asset-card" data-id="Web Pro"><h3>WEB PRO</h3></div>
-                <div class="asset-card" data-id="Marketing"><h3>MARKETING</h3></div>
-                <div class="asset-card" data-id="Audiovisual"><h3>VIDEO</h3></div>
-                <div class="asset-card" data-id="Identidad"><h3>IDENTIDAD</h3></div>
-                <div class="asset-card" data-id="Estrategia"><h3>ESTRATEGIA</h3></div>
+        <section class="solutions-os">
+            <div class="os-tag" id="status-tag">CONFIGURACIÓN REQUERIDA: 3 EJES</div>
+            
+            <div class="asset-grid-engine">
+                <div class="asset-item" data-val="Fidelización"><h3>FIDELIZACIÓN</h3></div>
+                <div class="asset-item" data-val="Branding"><h3>BRANDING</h3></div>
+                <div class="asset-item" data-val="Activos"><h3>ACTIVOS</h3></div>
+                <div class="asset-item" data-val="Web Pro"><h3>WEB PRO</h3></div>
+                <div class="asset-item" data-val="Marketing"><h3>MARKETING</h3></div>
+                <div class="asset-item" data-val="Video"><h3>VIDEO</h3></div>
+                <div class="asset-item" data-id="Identidad"><h3>IDENTIDAD</h3></div>
+                <div class="asset-item" data-id="Estrategia"><h3>ESTRATEGIA</h3></div>
+                <div class="asset-item" data-id="Eventos"><h3>EVENTOS</h3></div>
+                <div class="asset-item" data-id="BTL"><h3>BTL</h3></div>
+                <div class="asset-item" data-id="UI/UX"><h3>UI/UX</h3></div>
+                <div class="asset-item" data-id="Social"><h3>SOCIAL</h3></div>
             </div>
 
-            <div class="cta-container">
-                <a href="#" id="finalCTA" class="btn-brutal">SOLICITAR CONSULTORÍA ÉLITE</a>
+            <div class="cta-center">
+                <a href="#" id="ctaFinal" class="btn-elite">INICIAR SESIÓN ESTRATÉGICA</a>
             </div>
         </section>
 
     </div>
 
-    <footer>
-        <img src="logo-rosa.svg" width="80" style="margin-bottom: 20px; opacity: 0.5;"><br>
-        QUITO • MEDELLÍN • © 2026 ECOS SYSTEM
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-
-        // --- MOTOR DE PARTÍCULAS (Z-INDEX 1) ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let dots = [];
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            dots = [];
-            for(let i=0; i<60; i++) dots.push({
-                x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-                vX: (Math.random()-0.5)*0.6, vY: (Math.random()-0.5)*0.6
-            });
-        }
-        function render() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = 'rgba(255, 90, 129, 0.3)';
-            dots.forEach(d => {
-                d.x += d.vX; d.y += d.vY;
-                if(d.x<0 || d.x>canvas.width) d.vX *= -1;
-                if(d.y<0 || d.y>canvas.height) d.vY *= -1;
-                ctx.beginPath(); ctx.arc(d.x, d.y, 1.5, 0, Math.PI*2); ctx.fill();
-            });
-            requestAnimationFrame(render);
-        }
-        init(); render(); window.onresize = init;
-
-        // --- LÓGICA DE SELECCIÓN (INTERACTIVA) ---
-        const activeAssets = new Set();
-        const cards = document.querySelectorAll('.asset-card');
-        const cta = document.getElementById('finalCTA');
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const id = card.getAttribute('data-id');
-                if (activeAssets.has(id)) {
-                    activeAssets.delete(id);
-                    card.classList.remove('active');
-                } else if (activeAssets.size < 3) {
-                    activeAssets.add(id);
-                    card.classList.add('active');
-                    if(navigator.vibrate) navigator.vibrate(50); // Feedback háptico
-                }
-
-                if (activeAssets.size === 3) {
-                    cta.style.display = 'inline-block';
-                    cta.style.animation = 'fadeInUp 0.5s forwards';
-                    cta.href = `https://wa.me/593979010077?text=SISTEMA%20ECOS:%20He%20configurado%20mi%20marca%20con:%20${Array.from(activeAssets).join(', ')}`;
-                } else {
-                    cta.style.display = 'none';
-                }
-            });
-        });
-
-        // --- PARALLAX DEL LOGO (ELIMINA LA BÁSICA ANTERIOR) ---
-        window.addEventListener('scroll', () => {
-            const scroll = window.scrollY;
-            const logo = document.getElementById('mainLogo');
-            logo.style.transform = `translateY(${scroll * 0.5}px) scale(${1 - scroll/2000})`;
-            logo.style.opacity = 1 - (scroll/700);
-        });
-    </script>
-</body>
-</html>
+    <a href="https://wa.me/593979010077" class="wa-radar" target="_blank">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149
