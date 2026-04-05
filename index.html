@@ -3,187 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ECOS | Elite Strategic Solutions</title>
+    <title>ECOS | Strategic Asset Systems</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root { 
             --pink: #ff5a81; 
-            --pink-glow: rgba(255, 90, 129, 0.4);
-            --dark: #050505; 
-            --surface: #111111;
+            --pink-glow: rgba(255, 90, 129, 0.6);
+            --dark: #020202; 
+            --surface: #0a0a0a;
             --glass: rgba(255, 255, 255, 0.03);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
         
         body {
-            margin: 0; background: var(--dark); color: #fff;
+            background: var(--dark); color: #fff;
             font-family: 'Inter', sans-serif; overflow-x: hidden;
-            scroll-behavior: smooth; line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
-        /* --- FONDO DINÁMICO 3D (RED NEURONAL INTERACTIVA) --- */
-        #hero-canvas {
+        /* --- BACKGROUND NEURAL 3D --- */
+        #neural-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; opacity: 0.5; pointer-events: none;
+            z-index: 0; pointer-events: none; opacity: 0.6;
         }
 
-        /* --- HEADER --- */
-        .nav-bar {
-            position: fixed; top: 0; width: 100%; padding: 20px;
-            background: rgba(5,5,5,0.8); backdrop-filter: blur(10px);
-            z-index: 100; border-bottom: 1px solid var(--glass);
-            display: flex; justify-content: center;
+        /* --- BARRA DE PROGRESO DE LECTURA --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; background: var(--pink);
+            z-index: 200; width: 0%; box-shadow: 0 0 15px var(--pink);
         }
 
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh; display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; position: relative; z-index: 2; padding: 20px;
-            text-align: center;
+            justify-content: center; position: relative; z-index: 10;
         }
 
-        /* --- LOGO COMPLETO CORREGIDO --- */
-        .logo-complete {
-            width: 250px; height: auto; /* Logo más ancho y sin círculo */
+        .logo-box {
+            width: 180px; height: 180px; background: var(--pink); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px; transition: transform 0.1s ease-out;
-            animation: pulseInmersive 5s infinite;
-            z-index: 2; position: relative;
+            box-shadow: 0 0 120px var(--pink-glow); border: 6px solid #fff;
+            transition: 0.1s transform ease-out;
+            animation: pulseInmersive 5s infinite ease-in-out;
         }
-        /* Aura rosa de fondo, ahora más ancha para el logo completo */
-        .logo-complete::before {
-            content: '';
-            position: absolute;
-            width: 140%; height: 140%;
-            background: radial-gradient(circle, var(--pink-glow) 0%, transparent 60%);
-            z-index: -1;
-        }
+        .logo-box img { width: 65%; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
 
         @keyframes pulseInmersive {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.03); opacity: 0.95; }
+            0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 80px var(--pink-glow); }
+            50% { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 140px rgba(255, 90, 129, 0.8); }
         }
 
-        .hero h1 { font-family: 'Montserrat'; font-size: 3.5rem; letter-spacing: 12px; margin: 0; text-transform: uppercase; }
-        .hero p { color: var(--pink); letter-spacing: 6px; font-weight: 300; font-size: 0.9rem; margin-top: 10px; text-transform: uppercase; }
+        .hero h1 { font-family: 'Montserrat'; font-size: 5rem; letter-spacing: 20px; margin-top: 30px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .hero p { color: var(--pink); letter-spacing: 10px; font-weight: 300; font-size: 0.9rem; text-transform: uppercase; margin-top: 10px; }
 
-        /* --- SECCIONES DE CONTENIDO PROFESIONAL --- */
-        .section-label { 
-            color: var(--pink); font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; 
-            text-transform: uppercase; margin-bottom: 15px; display: block;
-        }
-
-        .content-wrapper { position: relative; z-index: 2; padding: 0 20px; max-width: 1000px; margin: 0 auto; }
-
-        .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; padding: 100px 0;
-        }
-
-        .feature-card {
-            background: var(--surface); border: 1px solid var(--glass);
-            padding: 40px; border-radius: 30px; transition: 0.4s;
-        }
-        .feature-card:hover { border-color: var(--pink); transform: translateY(-10px); }
-        .feature-card h3 { font-family: 'Montserrat'; font-size: 1.2rem; margin-bottom: 15px; }
-        .feature-card p { opacity: 0.7; font-size: 0.9rem; }
-
-        /* --- SISTEMA DE SERVICIOS (RECUPERADO) --- */
-        .services-container { padding: 100px 0; text-align: center; }
+        /* --- SECCIONES DE INFORMACIÓN AVANZADA --- */
+        .container { position: relative; z-index: 20; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
         
-        .status-pill {
-            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid #222;
-            padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 0.8rem;
-            display: inline-block; margin-bottom: 40px; letter-spacing: 2px;
-            transition: 0.5s;
+        .glass-card {
+            background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(25px);
+            border: 1px solid var(--glass); padding: 60px; border-radius: 50px;
+            margin: 100px 0; border-left: 5px solid var(--pink);
+            transition: 0.4s;
         }
-        .status-pill.ready { background: #25d366; color: #fff; border-color: #fff; box-shadow: 0 0 30px rgba(37, 211, 102, 0.4); }
+        .glass-card:hover { transform: scale(1.01); border-color: var(--pink); }
 
-        .grid-12 {
+        .title-reveal { font-family: 'Montserrat'; font-size: 2rem; margin-bottom: 30px; color: #fff; }
+        .text-body { font-size: 1.1rem; line-height: 2; opacity: 0.8; color: #ccc; }
+
+        /* --- GRID DE SERVICIOS 3D --- */
+        .selector-box { padding: 100px 0; text-align: center; }
+        
+        .status-badge {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--pink);
+            padding: 12px 40px; border-radius: 100px; font-weight: 900;
+            font-size: 0.85rem; letter-spacing: 4px; display: inline-block;
+            margin-bottom: 60px; color: var(--pink); transition: 0.5s;
+        }
+        .status-badge.complete { background: #25d366; color: #fff; border-color: #fff; box-shadow: 0 0 50px rgba(37, 211, 102, 0.6); }
+
+        .service-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
-            max-width: 400px; margin: 0 auto;
+            max-width: 460px; margin: 0 auto; perspective: 1000px;
         }
 
         .service-card {
-            background: #111; border: 1px solid #222; border-radius: 20px;
-            padding: 40px 10px; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; align-items: center; justify-content: center; position: relative;
-            overflow: hidden;
+            background: #0f0f0f; border: 1px solid #222; border-radius: 25px;
+            padding: 50px 10px; cursor: pointer; transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            transform-style: preserve-3d;
         }
-        .service-card h4 { font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; color: #fff; z-index: 2; margin: 0; }
-        
+        .service-card h4 { font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; color: #888; transition: 0.3s; }
+
+        .service-card:hover { border-color: #444; transform: translateZ(20px); }
+
         .service-card.selected {
-            border: 2px solid var(--pink); background: rgba(255, 90, 129, 0.15);
-            transform: scale(1.05) translateZ(20px);
-            box-shadow: 0 0 20px rgba(255, 90, 129, 0.3);
+            background: linear-gradient(145deg, #ff5a81, #d43f63);
+            border: none; transform: scale(1.08) translateZ(50px);
+            box-shadow: 0 20px 50px rgba(255, 90, 129, 0.4);
+        }
+        .service-card.selected h4 { color: #fff; transform: scale(1.1); }
+
+        /* --- BOTONES DE LANZAMIENTO --- */
+        .btn-launch {
+            display: none; background: #fff; color: #000; width: 100%; max-width: 460px;
+            padding: 25px; border-radius: 100px; text-decoration: none; font-weight: 900;
+            margin: 60px auto 0; letter-spacing: 5px; font-size: 1rem;
+            box-shadow: 0 30px 60px rgba(255,255,255,0.1); transition: 0.4s;
+            animation: fadeIn 0.8s ease;
         }
 
-        /* --- BOTONES DE CIERRE DE VENTA --- */
-        .btn-cta {
-            display: none; background: #fff; color: #000; width: 100%; max-width: 400px;
-            padding: 22px; border-radius: 50px; text-decoration: none; font-weight: 900;
-            margin: 50px auto; letter-spacing: 3px; font-size: 0.9rem;
-            animation: slideInUp 0.5s forwards; text-align: center;
-        }
-        .btn-cta:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255,255,255,0.2); }
-
-        /* Icono WA corregido */
-        .whatsapp-fixed {
-            position: fixed; bottom: 30px; right: 30px;
-            background: #25d366; width: 70px; height: 70px; border-radius: 50%;
+        .wa-float {
+            position: fixed; bottom: 40px; right: 40px;
+            background: #25d366; width: 80px; height: 80px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4); z-index: 1000;
-            transition: 0.3s;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6); z-index: 1000;
         }
-        .whatsapp-fixed img { width: 38px; height: 38px; }
 
         footer {
-            padding: 100px 20px; text-align: center; border-top: 1px solid var(--glass);
-            background: #000;
+            padding: 120px 20px; text-align: center; background: #000;
+            border-top: 1px solid #111;
         }
-        .footer-brand { font-family: 'Montserrat'; letter-spacing: 5px; font-size: 1.2rem; margin-bottom: 10px; }
-        .footer-loc { opacity: 0.5; font-size: 0.7rem; letter-spacing: 3px; }
+        .footer-logo { font-family: 'Montserrat'; font-size: 2rem; letter-spacing: 15px; margin-bottom: 15px; }
 
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <canvas id="hero-canvas"></canvas>
-
-    <header class="nav-bar">
-        <div style="font-family: 'Montserrat'; letter-spacing: 4px; font-size: 0.8rem;">ECOS • ASSET SYSTEMS</div>
-    </header>
+    <div id="scroll-progress"></div>
+    <canvas id="neural-canvas"></canvas>
 
     <section class="hero">
-        <div class="logo-complete" id="scrollLogo">
-            <img src="ecos-horizontal-white.png" style="width: 100%;" alt="ECOS Logo">
+        <div class="logo-box" id="scrollLogo">
+            <img src="logo-blanco.svg" alt="ECOS Logo">
         </div>
-        <h1 data-aos="zoom-out">ECOS</h1>
-        <p data-aos="fade-up" data-aos-delay="200">STRATEGIC SOLUTIONS</p>
+        <h1 data-aos="zoom-in">ECOS</h1>
+        <p data-aos="fade-up" data-aos-delay="300">ASSET SYSTEM • 2026</p>
     </section>
 
-    <div class="content-wrapper">
-        <section class="info-grid">
-            <div class="feature-card" data-aos="fade-right">
-                <span class="section-label">01. Trayectoria</span>
-                <h3>Impacto Consolidado</h3>
-                <p>Nuestra metodología ha blindado activos de marcas líderes, fusionando inteligencia estratégica con diseño de alto nivel. Operando en Ecuador y Colombia.</p>
-            </div>
-            <div class="feature-card" data-aos="fade-left">
-                <span class="section-label">02. Innovación</span>
-                <h3>Visión Tec-Branding</h3>
-                <p>Implementamos soluciones PWA de última generación que convierten interacciones en permanencia, blindando la identidad de la marca con tecnología segura y blindada.</p>
-            </div>
+    <div class="container">
+        <section class="glass-card" data-aos="fade-right">
+            <h2 class="title-reveal">01. ASSET INTELLIGENCE</h2>
+            <p class="text-body">
+                ECOS no es una agencia, es un sistema operativo para activos estratégicos. Con presencia en Ecuador y Colombia, hemos consolidado más de 20 marcas líderes mediante una arquitectura digital que prioriza la retención y el crecimiento exponencial.
+            </p>
         </section>
 
-        <section class="services-container">
-            <div id="statusPill" class="status-pill">SELECCIONA 3 EJES ESTRATÉGICOS</div>
+        <section class="glass-card" data-aos="fade-left" style="border-left: 0; border-right: 5px solid var(--pink); text-align: right;">
+            <h2 class="title-reveal">02. TECNOLOGÍA PWA</h2>
+            <p class="text-body">
+                Implementamos soluciones de última generación que eliminan la fricción entre el usuario y la marca. Nuestros sistemas están diseñados para operar bajo los estándares de seguridad y velocidad más altos de la industria actual.
+            </p>
+        </section>
+
+        <section class="selector-box">
+            <div id="status" class="status-badge">SISTEMA: EN ESPERA DE CONFIGURACIÓN</div>
             
-            <div class="grid-12" id="grid">
+            <div class="service-grid">
                 <div class="service-card" data-name="Fidelización"><h4>FIDELIZACIÓN</h4></div>
                 <div class="service-card" data-name="Branding"><h4>BRANDING</h4></div>
                 <div class="service-card" data-name="Activos"><h4>ACTIVOS</h4></div>
@@ -195,40 +175,88 @@
                 <div class="service-card" data-name="Eventos"><h4>EVENTOS</h4></div>
                 <div class="service-card" data-name="BTL"><h4>BTL</h4></div>
                 <div class="service-card" data-name="UI/UX"><h4>UI/UX</h4></div>
-                <div class="service-card" data-name="Social Media"><h4>SOCIAL</h4></div>
+                <div class="service-card" data-name="Social"><h4>SOCIAL</h4></div>
             </div>
 
-            <a href="#" id="ctaBtn" class="btn-cta">SOLICITAR COTIZACIÓN ELITE</a>
+            <a href="#" id="launchBtn" class="btn-launch">SOLICITAR ACCESO ESTRATÉGICO</a>
         </section>
     </div>
 
-    <a href="#" class="whatsapp-fixed" id="waBtn" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+    <a href="#" class="wa-float" id="waBtn" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="45" alt="WA">
     </a>
 
     <footer>
-        <div class="footer-brand">ECOS SYSTEM</div>
-        <div class="footer-loc">QUITO, ECUADOR • MEDELLÍN, COLOMBIA</div>
-        <div style="margin-top: 30px; opacity: 0.3; font-size: 0.6rem;">© 2026. TOP-TIER SOLUTION.</div>
+        <div class="footer-logo">ECOS</div>
+        <p style="opacity: 0.4; letter-spacing: 5px; font-size: 0.7rem;">ELITE ASSET SYSTEMS • ECUADOR • COLOMBIA</p>
+        <div style="margin-top: 60px; opacity: 0.2; font-size: 0.6rem;">ESTABLISHED 2015. ALL RIGHTS RESERVED.</div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: false });
+        AOS.init({ duration: 1200 });
 
-        // Animación del Logo al Scroll (Interactivo)
+        // 1. Motor Neural 3D Avanzado
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<100; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff5a81';
+            ctx.lineWidth = 0.5;
+
+            points.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2); ctx.fill();
+
+                for(let j=i+1; j<points.length; j++) {
+                    let p2 = points[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 120) {
+                        ctx.strokeStyle = `rgba(255, 90, 129, ${1 - dist/120})`;
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+        init(); draw();
+        window.onresize = init;
+
+        // 2. Progresión y Animación de Logo
         window.addEventListener('scroll', () => {
-            const logo = document.getElementById('scrollLogo');
-            const scrolled = window.scrollY;
-            logo.style.transform = `rotate(${scrolled / 12}deg) scale(${1 - scrolled/4000})`;
+            const h = document.documentElement, b = document.body, st = 'scrollTop', sh = 'scrollHeight';
+            const pct = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+            document.getElementById('scroll-progress').style.width = pct + '%';
+            
+            const scroll = window.scrollY;
+            document.getElementById('scrollLogo').style.transform = `rotate(${scroll/12}deg) translateY(${scroll/20}px)`;
         });
 
-        // Lógica de Selección de Servicios
+        // 3. Lógica Elite de Selección
         const selected = new Set();
         const cards = document.querySelectorAll('.service-card');
-        const pill = document.getElementById('statusPill');
-        const cta = document.getElementById('ctaBtn');
-        const wa = document.getElementById('waBtn');
+        const status = document.getElementById('status');
+        const launchBtn = document.getElementById('launchBtn');
+        const waBtn = document.getElementById('waBtn');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -239,81 +267,28 @@
                 } else if (selected.size < 3) {
                     selected.add(name);
                     card.classList.add('selected');
-                    if(navigator.vibrate) navigator.vibrate(50);
+                    if(navigator.vibrate) navigator.vibrate(60);
                 }
-                updateUI();
+                
+                const count = selected.size;
+                if(count === 3) {
+                    status.innerText = "CONFIGURACIÓN COMPLETA • ACCESO AUTORIZADO";
+                    status.classList.add('complete');
+                    launchBtn.style.display = 'block';
+                    waBtn.style.display = 'flex';
+                    
+                    const msg = encodeURIComponent(`¡Hola Víctor! Mi configuración ECOS incluye: ${Array.from(selected).join(', ')}. Deseo una sesión de asesoría estratégica.`);
+                    const url = `https://wa.me/593979010077?text=${msg}`;
+                    launchBtn.href = url;
+                    waBtn.href = url;
+                } else {
+                    status.innerText = `SELECCIONADOS: ${count} DE 3 EJES`;
+                    status.classList.remove('complete');
+                    launchBtn.style.display = 'none';
+                    waBtn.style.display = 'none';
+                }
             });
         });
-
-        function updateUI() {
-            const count = selected.size;
-            if (count === 3) {
-                pill.innerText = "SISTEMA CONFIGURADO";
-                pill.classList.add('ready');
-                cta.style.display = 'block';
-                wa.style.display = 'flex';
-                
-                const services = Array.from(selected).join(', ');
-                const link = `https://wa.me/593979010077?text=${encodeURIComponent('¡Hola ECOS! He configurado mi sistema élite con: ' + services + '. Deseo una asesoría estratégica.')}`;
-                cta.href = link;
-                wa.href = link;
-            } else {
-                pill.innerText = `SELECCIONADOS: ${count} DE 3`;
-                pill.classList.remove('ready');
-                cta.style.display = 'none';
-                wa.style.display = 'none';
-            }
-        }
-
-        // Background Neural 3D Interactiva
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
-
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<80; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    size: Math.random() * 1.5
-                });
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#ff5a81';
-            ctx.lineWidth = 0.5;
-
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                
-                // Efecto Mouse
-                if(mouse.x) {
-                    let dx = mouse.x - p.x;
-                    let dy = mouse.y - p.y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < 150) {
-                        ctx.strokeStyle = `rgba(255, 90, 129, ${1 - dist/150})`;
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-                    }
-                }
-
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        }
-        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-        initCanvas(); draw();
-        window.onresize = initCanvas;
     </script>
 </body>
 </html>
